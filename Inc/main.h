@@ -16,8 +16,7 @@
 
 
 
-/* ---- Forward declarations for small UART print helpers ---- */
-void uart_print_decimal(USART_Handle_t *pUSARTHandle, int32_t value);
+
 
 
 
