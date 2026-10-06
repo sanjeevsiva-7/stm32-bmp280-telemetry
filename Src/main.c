@@ -1,4 +1,6 @@
 #include "main.h"
+
+
 /* ---- Peripheral handles ---- */
 I2C_Handle_t   I2C1Handle;
 USART_Handle_t usart2_handle;
@@ -50,51 +52,14 @@ int main(void)
             s.pressure    = press_comp / 256;
             ring_buffer_push(&sample_log, s);
 
-            //uart_print_decimal(&usart2_handle, s.temperature);
-            //uart_print_decimal(&usart2_handle, s.pressure);
-            uart_print_fixed(&usart2_handle, s.temperature, 2, " C");
-            uart_print_fixed(&usart2_handle, s.pressure, 2, " hPa");
+
         }
 
         cli_poll();
     }
 }
 
-/* ---- Decimal print helper ---- */
-void uart_print_decimal(USART_Handle_t *pUSARTHandle, int32_t value)
-{
-    char buf[12];
-    int i = 0;
-    uint8_t is_negative = 0;
 
-    if (value < 0) {
-        is_negative = 1;
-        value = -value;
-    }
-
-    if (value == 0) {
-        buf[i++] = '0';
-    }
-
-    while (value > 0) {
-        buf[i++] = '0' + (value % 10);
-        value /= 10;
-    }
-
-    if (is_negative) {
-        buf[i++] = '-';
-    }
-
-    uint8_t out[12];
-    uint8_t len = 0;
-    while (i > 0) {
-        out[len++] = buf[--i];
-    }
-    out[len++] = '\r';
-    out[len++] = '\n';
-
-    USART_SendData(pUSARTHandle, out, len);
-}
 
 /* ---- Interrupt Service Routines ---- */
 
