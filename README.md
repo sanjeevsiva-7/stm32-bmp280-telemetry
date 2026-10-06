@@ -62,7 +62,7 @@ Connect via a serial terminal (PuTTY, Tera Term) at 115200 8N1. The sensor sampl
     > CLEAR
     Buffer cleared
 
-    ![CLI demo in PuTTY](images/cli-demo.jpg)
+  ![CLI demo in PuTTY](images/cli-demo.jpg)
 
 ## Build
 
