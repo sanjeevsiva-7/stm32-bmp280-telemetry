@@ -89,6 +89,8 @@
 #define SPI2_BASEADDR						(APB1_PERIPH_BASEADDR + 0x3800)
 #define SPI3_BASEADDR						(APB1_PERIPH_BASEADDR + 0x3C00)
 
+#define TIM6_BASEADDR    					(APB1_PERIPH_BASEADDR + 0x1000)
+
 #define USART2_BASEADDR						(APB1_PERIPH_BASEADDR + 0x4400)
 #define USART3_BASEADDR						(APB1_PERIPH_BASEADDR + 0x4800)
 #define UART4_BASEADDR						(APB1_PERIPH_BASEADDR + 0x4C00)
@@ -246,6 +248,25 @@ typedef struct{
 
 }USART_RegDef_t;
 
+
+
+/*
+ * peripheral register definition structure for TIM6 (basic timer)
+ */
+typedef struct {
+    __vo uint32_t CR1;
+    __vo uint32_t CR2;
+    uint32_t      RESERVED0;
+    __vo uint32_t DIER;
+    __vo uint32_t SR;
+    __vo uint32_t EGR;
+    uint32_t      RESERVED1[3];
+    __vo uint32_t CNT;
+    __vo uint32_t PSC;
+    __vo uint32_t ARR;
+} TIM_RegDef_t;
+
+
 /*
  * peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t)
  */
@@ -279,6 +300,8 @@ typedef struct{
 #define UART4				((USART_RegDef_t*)UART4_BASEADDR)
 #define UART5				((USART_RegDef_t*)UART5_BASEADDR)
 #define USART6				((USART_RegDef_t*)USART6_BASEADDR)
+
+#define TIM6				((TIM_RegDef_t*)TIM6_BASEADDR)
 
 
 /*
@@ -323,6 +346,11 @@ typedef struct{
  * Clock Enable Macros for SYSCFG peripheral
  */
 #define SYSCFG_PCLK_EN() (RCC->APB2ENR |= (1 << 14))
+
+/*
+ * Clock Enable macro for TIM6 (APB1ENR bit 4)
+ */
+#define TIM6_PCLK_EN()  (RCC->APB1ENR |= (1 << 4))
 
 
 /*
@@ -445,6 +473,7 @@ typedef struct{
 #define IRQ_NO_UART4	    52
 #define IRQ_NO_UART5	    53
 #define IRQ_NO_USART6	    71
+#define IRQ_NO_TIM6_DAC   	54
 
 /*
  * macros for all possible priority levels
@@ -672,6 +701,17 @@ typedef struct{
 #define USART_SR_TXE        			7
 #define USART_SR_LBD        			8
 #define USART_SR_CTS        			9
+
+
+/******************************************************************************************
+ *Bit position definitions of TIMER peripheral
+ ******************************************************************************************/
+/*
+ * TIM6 bit positions you need
+ */
+#define TIM_CR1_CEN   0    // Counter enable
+#define TIM_DIER_UIE  0    // Update interrupt enable
+#define TIM_SR_UIF    0    // Update interrupt flag
 
 
 
