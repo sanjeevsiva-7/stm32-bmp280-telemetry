@@ -853,7 +853,7 @@ void USART_IRQHandling(USART_Handle_t *pUSARTHandle)
 /*************************Check for Error Flag ********************************************/
 
 //Noise Flag, Overrun error and Framing Error in multibuffer communication
-//We dont discuss multibuffer communication in this course. please refer to the RM
+//We dont discuss multibuffer communication . please refer to the RM
 //The blow code will get executed in only if multibuffer mode is used.
 
 	temp2 =  pUSARTHandle->pUSARTx->USART_CR3 & ( 1 << USART_CR3_EIE) ;
